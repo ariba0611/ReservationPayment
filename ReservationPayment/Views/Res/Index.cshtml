@@ -1,0 +1,79 @@
+﻿@model  ReservationPayment.Models.Reservation
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+<html>
+<head>
+    <style>
+
+        .b1 {
+            background-color: cadetblue;
+            border: none;
+            color: black;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Enter details</h1>
+
+    @using (Html.BeginForm())
+    {
+
+        @Html.LabelFor(model => model.Res_Name, "Name", new { @class = "font-weight-bold" })
+        @Html.TextBoxFor(model => model.Res_Name, new { @class = "form-control" })<br />
+
+        @Html.LabelFor(model => model.Res_Gender, "Gender", new { @class = "font-weight-bold" })
+        @Html.TextBoxFor(model => model.Res_Gender, new { @class = "form-control" })<br />
+
+        @Html.LabelFor(model => model.TrainDetails.SourceStation, "Source Station", new { @class = "font-weight-bold" })
+        @Html.DropDownListFor(model => model.TrainDetails.SourceStation, ViewData["TrainDetailS"] as IEnumerable<SelectListItem>, "Select Source Station", new { @class = "form-control" })<br />
+
+
+        @Html.LabelFor(model => model.TrainDetails.DestinationStation, "Destination Station", new { @class = "font-weight-bold" })
+        @Html.DropDownListFor(model => model.TrainDetails.DestinationStation, ViewData["TrainDetailDesti"] as IEnumerable<SelectListItem>, "Select Destination Station", new { @class = "form-control" })<br />
+
+        @Html.LabelFor(model => model.QuotaType, "Select Quota", new { @class = "font-weight-bold" })
+
+        @Html.DropDownListFor(model => model.QuotaType, new SelectList(new[] { "General Quota", "Ladies Quota" }), "Select Quota", new { @class = "form-control" })<br />
+
+
+        @Html.LabelFor(model => model.Res_Date, "Select Date", new { @class = "font-weight-bold" })<br />
+
+        <input type="date" ,class='input-group date'><br /><br />
+
+        <input type="Submit" name="Check Details" , class="b1" />
+
+        @Html.ActionLink("Book Ticket", "Index", "Payment", "", new { @class = "b1" });
+
+
+        <h2>
+            @Session["ResName"]
+            @Session["SourceStation"]
+            @Session["DestinationStation"]
+
+            
+
+        </h2>
+       
+
+        <h2>@Session["ResGender"] </h2>
+
+    }
+
+
+
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,160 @@
+﻿
+
+@model IEnumerable<ReservationPayment.Models.TrainDetails>
+
+@{
+    ViewBag.Title = "Index";
+}
+<html>
+<head>
+    <style>
+        #TrainDetail {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+            #TrainDetail td, #TrainDetail th {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            #TrainDetail tr:hover {
+                background-color: #ddd;
+            }
+
+            #TrainDetail th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: lightblue;
+                color: black;
+            }
+
+        .button {
+            background-color: lightpink;
+            border: none;
+            color: black;
+            padding: 8px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 20px;
+            border-radius: 8px;
+            margin: 10px 5px;
+            cursor: pointer;
+        }
+
+        .b1 {
+            background-color: lightpink;
+            border: none;
+            color: black;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 15px;
+            border-radius: 5px;
+        }
+
+        .content {
+            align-content: center;
+            border-color: black;
+            border-style: solid;
+            border-width: 3px;
+        }
+
+        p {
+            border-color: blue;
+            border-width: .500em;
+            border-style: double;
+        }
+
+        #container {
+            border: 12px solid #B22222;
+            border-radius: 10px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+
+    <h2>Train Details</h2>
+
+
+    <a href="Create" class="button">Add Train</a>
+    <div class="content text-center">
+
+        <table id="TrainDetail">
+            <thead>
+
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Train_Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TrainName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SourceStation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DestinationStation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Fare)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ArrivalTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DepartureTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TotalSeats)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Train_Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TrainName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SourceStation)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DestinationStation)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fare)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ArrivalTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DepartureTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TotalSeats)
+                        </td>
+                        <td>
+
+                            @Html.ActionLink("Update", "Edit", new { id = item.Train_Id }, new { @class = "b1" })
+
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Train_Id }, new { @class = "b1" })
+                        </td>
+                    </tr>
+                }
+            </thead>
+        </table>
+    </div>
+</body>
+</html>
