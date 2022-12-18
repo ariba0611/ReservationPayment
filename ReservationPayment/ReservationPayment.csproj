@@ -57,6 +57,7 @@
     <Reference Include="Razorpay, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Razorpay.3.0.2\lib\net45\Razorpay.dll</HintPath>
     </Reference>
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -118,6 +119,7 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="css\style.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -139,7 +141,7 @@
     <Compile Include="Models\DAL\IRailwayRepository.cs" />
     <Compile Include="Models\DAL\RailwayRepository.cs" />
     <Compile Include="Models\DataContext.cs" />
-    <Compile Include="Models\PaymentInitiateModel.cs" />
+    <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\Reservation.cs" />
     <Compile Include="Models\Ticket.cs" />
     <Compile Include="Models\TrainDetails.cs" />

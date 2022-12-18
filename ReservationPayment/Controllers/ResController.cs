@@ -8,6 +8,7 @@ namespace ReservationPayment.Controllers
 {
     public class ResController : Controller
     {
+       
         private IRailwayRepository<TrainDetails> TrainObj;
         public ResController()
         {
@@ -29,6 +30,7 @@ namespace ReservationPayment.Controllers
         public ActionResult Index(Reservation res)
 
         {
+           
 
             Session["ResName"] = res.Res_Name;
             Session["ResGender"] = res.Res_Gender;

@@ -1,4 +1,4 @@
-﻿@model  ReservationPayment.Controllers.PaymentController.OrderModel
+﻿@model  ReservationPayment.Models.OrderModel
 <button id="rzp-button1" hidden>Pay</button>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
@@ -7,8 +7,6 @@ var options = {
     "amount": "@Html.DisplayFor(model => model.amount)", 
     "currency": "@Html.DisplayFor(model => model.currency)",
     "name": "@Html.DisplayFor(model => model.name)",
-    "description": "@Html.DisplayFor(model => model.description)",
-    "image": "https://example.com/your_logo", 
     "order_id": "@Html.DisplayFor(model => model.orderId)",
     "handler": function (response){
        
@@ -40,7 +38,7 @@ document.getElementById('rzp-button1').onclick = function(e){
 }
 </script>
 
-<!-- This form is hidden, and submit when payment successfully made -->
+@* This form is hidden, and submit when payment successfully made *@
 @using (Html.BeginForm("Complete", "Payment"))
 {
     @Html.AntiForgeryToken()

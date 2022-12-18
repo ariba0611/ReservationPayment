@@ -1,11 +1,21 @@
-﻿using System;
+﻿using ReservationPayment.Models;
+using ReservationPayment.Models.DAL;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Numerics;
 using System.Web.Mvc;
 
 namespace ReservationPayment.Controllers
 {
     public class PaymentController : Controller
     {
+        private IRailwayRepository<Reservation>  ResObj;
+        public PaymentController()
+        {
+            this.ResObj = new RailwayRepository<Reservation>();
+
+        }
         public ActionResult Index()
         {
             return View();
@@ -13,56 +23,48 @@ namespace ReservationPayment.Controllers
 
 
         [HttpPost]
-        public ActionResult CreateOrder(Models.PaymentInitiateModel _requestData)
+        public ActionResult CreateOrder(Models.OrderModel _requestData)
         {
             
             Random randomObj = new Random();
             string transactionId = randomObj.Next(10000000, 100000000).ToString();
+            Session["transactionId"] = transactionId;   
 
             Razorpay.Api.RazorpayClient client = new Razorpay.Api.RazorpayClient("rzp_test_aJVAJtaSskH7US", "5ug92ZJIU89n0R3SKU7O0RP8");
             Dictionary<string, object> options = new Dictionary<string, object>();
-            options.Add("amount", _requestData.amount * 100);  
+            options.Add("amount", 500 * 100);  
             options.Add("receipt", transactionId);
             options.Add("currency", "INR");
             options.Add("payment_capture", "0"); 
             Razorpay.Api.Order orderResponse = client.Order.Create(options);
-            string orderId = orderResponse["id"].ToString();
+           // string orderId = orderResponse["id"].ToString();
 
-            OrderModel orderModel = new OrderModel
+            Models.OrderModel orderModel = new Models.OrderModel
             {
                 orderId = orderResponse.Attributes["id"],
                 razorpayKey = "rzp_test_aJVAJtaSskH7US",
-                amount = _requestData.amount * 100,
+                amount = 500 * 100,
                 currency = "INR",
                 name = _requestData.name,
                 email = _requestData.email,
                 contactNumber = _requestData.contactNumber,
                 address = _requestData.address,
-                description = "Testing description"
+              
             };
 
             return View("PaymentPage", orderModel);
         }
 
-        public class OrderModel
-        {
-            public string orderId { get; set; }
-            public string razorpayKey { get; set; }
-            public int amount { get; set; }
-            public string currency { get; set; }
-            public string name { get; set; }
-            public string email { get; set; }
-            public string contactNumber { get; set; }
-            public string address { get; set; }
-            public string description { get; set; }
-        }
+  
 
 
         [HttpPost]
-        public ActionResult Complete()
+        public ActionResult Complete(Reservation reservation)
         {
-          
-            
+
+           
+           
+
             string paymentId = Request.Params["rzp_paymentid"];
 
           
@@ -81,7 +83,18 @@ namespace ReservationPayment.Controllers
 
             if (paymentCaptured.Attributes["status"] == "captured")
             {
-               
+
+              
+
+                Guid guid = Guid.NewGuid();
+
+                BigInteger big = new BigInteger(guid.ToByteArray());
+                var pnr = big.ToString().Substring(0, 10);
+
+                var str = pnr.Replace("-", string.Empty);
+
+                Session["PNR"]= str;
+
                 return RedirectToAction("Success");
             }
             else
