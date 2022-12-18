@@ -37,7 +37,7 @@ namespace ReservationPayment.Controllers
             options.Add("currency", "INR");
             options.Add("payment_capture", "0"); 
             Razorpay.Api.Order orderResponse = client.Order.Create(options);
-           // string orderId = orderResponse["id"].ToString();
+            string orderId = orderResponse["id"].ToString();
 
             Models.OrderModel orderModel = new Models.OrderModel
             {
@@ -59,14 +59,9 @@ namespace ReservationPayment.Controllers
 
 
         [HttpPost]
-        public ActionResult Complete(Reservation reservation)
+        public ActionResult Complete()
         {
-
-           
-           
-
             string paymentId = Request.Params["rzp_paymentid"];
-
           
             string orderId = Request.Params["rzp_orderid"];
 
@@ -78,13 +73,13 @@ namespace ReservationPayment.Controllers
             options.Add("amount", payment.Attributes["amount"]);
             Razorpay.Api.Payment paymentCaptured = payment.Capture(options);
             string amt = paymentCaptured.Attributes["amount"];
-
+            
           
 
             if (paymentCaptured.Attributes["status"] == "captured")
             {
 
-              
+             
 
                 Guid guid = Guid.NewGuid();
 
